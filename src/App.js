@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./App.css";
-import Pokemon from "./Components/Pokemon";
+import Pokemon from "./Components/Pokemon/PokemonCard";
+import PokemonCard from "./Components/Pokemon/PokemonCard";
 
 function App() {
   const [pokemons, setPokemons] = useState([]);
@@ -26,6 +27,7 @@ function App() {
         return {
           id: pokemon.id,
           name: pokemon.name,
+          image: pokemon.img,
         };
       });
 
@@ -48,7 +50,7 @@ function App() {
   // const pokemonById = pokemons.filter((pokemon) => pokemon.id === 4);
 
   if (pokemons.length > 0) {
-    content = <Pokemon pokemons={pokemons} />; // Passing pokemonById array for showing pokemons id wise.
+    content = pokemons.map((pokemon) => <PokemonCard details={pokemon} />); // Passing pokemonById array for showing pokemons id wise.
   }
 
   if (isLoading) {
@@ -59,7 +61,7 @@ function App() {
     content = <h2>{error}</h2>;
   }
 
-  return <React.Fragment>{content}</React.Fragment>;
+  return <div className="container">{content}</div>;
 }
 
 export default App;
